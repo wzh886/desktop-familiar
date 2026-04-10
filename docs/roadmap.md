@@ -1,49 +1,49 @@
-# Roadmap
+# 路线图
 
-## Phase 0 — Concept and constraints
-- philosophy
-- architecture
-- memory model
-- safety model
-- project naming and framing
+## Phase 0 — 概念与约束
+- 哲学理念
+- 系统架构
+- 记忆模型
+- 安全模型
+- 项目命名与整体 framing
 
-## Phase 1 — Minimal Windows prototype
-- desktop shell
+## Phase 1 — 最小 Windows 原型
+- 桌面外壳
 - push-to-talk
-- STT/TTS path
-- visible assistant state
-- safe actions: launch app, inspect active window, open folder
-- session working memory
+- STT / TTS 链路
+- 可见的助手状态
+- 基础安全动作：打开应用、检查当前窗口、打开文件夹
+- 会话级工作记忆
 
-## Phase 2 — Task execution and confirmations
-- task planner
-- explicit action classes
-- confirmation prompts
-- execution log
-- action results and error summaries
+## Phase 2 — 任务执行与确认机制
+- 任务规划器
+- 显式动作等级
+- 确认提示流程
+- 执行日志
+- 结果与错误摘要
 
-## Phase 3 — Persistent memory
-- episodic memory store
-- preference memory store
-- editable memory UI
-- memory summaries and retrieval
+## Phase 3 — 持久记忆
+- 情景记忆存储
+- 偏好记忆存储
+- 可编辑记忆界面
+- 记忆摘要与检索
 
-## Phase 4 — Richer desktop control
-- browser automation
-- file operations
-- window management
-- context capture and OCR
+## Phase 4 — 更丰富的桌面控制
+- 浏览器自动化
+- 文件操作
+- 窗口管理
+- 上下文捕获与 OCR
 
-## Phase 5 — Product differentiation
-- stronger embodiment layer
-- richer visual state transitions
-- plugin/skill model
-- supervisor/worker orchestration
-- replayable task history
+## Phase 5 — 产品差异化增强
+- 更强的具身层
+- 更丰富的视觉状态切换
+- 插件 / 技能模型
+- supervisor / worker 编排
+- 可回放的任务历史
 
-## First public repository goal
-Reach a state where the repo clearly communicates:
-- why the project matters
-- why the architecture is different from a toy pet
-- how safety and memory are treated seriously
-- what the first working Windows prototype will include
+## 第一阶段公开仓库目标
+让仓库达到这样一种状态：
+- 能清楚说明这个项目为什么值得做
+- 能清楚说明它和普通桌宠的本质区别
+- 能清楚说明它如何严肃处理安全与记忆
+- 能清楚说明第一版 Windows 原型会包含什么

@@ -1,99 +1,99 @@
-# System Architecture
+# 系统架构
 
-## Top-level structure
-The system should be designed as five cooperating layers:
+## 顶层结构
+整个系统应被设计为五个相互协作的层：
 
 ```text
 ┌──────────────────────────────────────────────┐
-│ 1. Embodiment Layer                          │
-│    character, presence, animation, status    │
+│ 1. 具身层                                    │
+│    角色、存在感、动画、状态                  │
 ├──────────────────────────────────────────────┤
-│ 2. Interaction Layer                         │
-│    microphone, STT, TTS, text, confirmations │
+│ 2. 交互层                                    │
+│    麦克风、STT、TTS、文本、确认流程          │
 ├──────────────────────────────────────────────┤
-│ 3. Agent Runtime Layer                       │
-│    intent, planning, execution, supervision  │
+│ 3. 代理运行时层                              │
+│    意图、规划、执行、监督                    │
 ├──────────────────────────────────────────────┤
-│ 4. Memory Layer                              │
-│    working, episodic, preference memory      │
+│ 4. 记忆层                                    │
+│    工作记忆、情景记忆、偏好记忆              │
 ├──────────────────────────────────────────────┤
-│ 5. Windows Action Layer                      │
-│    apps, files, browser, UI automation       │
+│ 5. Windows 动作层                            │
+│    应用、文件、浏览器、界面自动化            │
 └──────────────────────────────────────────────┘
 ```
 
 ---
 
-## 1. Embodiment Layer
-### Responsibility
-Present the assistant as a lightweight persistent companion on the desktop.
+## 1. 具身层
+### 职责
+把助手呈现成一个轻量、持续存在于桌面的陪伴体。
 
-### Responsibilities
-- render the companion UI
-- expose states such as listening / thinking / executing / waiting / failed
-- display compact task summaries or confirmation prompts
-- provide minimal but expressive visual feedback
+### 具体责任
+- 渲染伴侣界面
+- 暴露诸如“监听 / 思考 / 执行 / 等待 / 失败”等状态
+- 展示简洁的任务摘要或确认提示
+- 提供最小但足够表达状态的视觉反馈
 
-### Candidate implementations
+### 候选实现
 - Tauri + WebView UI
-- Electron + front-end UI
-- Godot or Unity if richer animation becomes important later
+- Electron + 前端界面
+- 如果未来更重视动画表现，可考虑 Godot 或 Unity
 
-### Initial recommendation
-Start with **Tauri** if speed and system integration matter more than animation depth.
-
----
-
-## 2. Interaction Layer
-### Responsibility
-Handle all user-facing input/output flows.
-
-### Inputs
-- microphone capture
-- optional wake-word or push-to-talk
-- text fallback input
-- hotkeys / tray menu / compact command palette
-
-### Outputs
-- speech synthesis
-- on-screen bubbles / notifications
-- status indicators
-- approval prompts
-
-### Internal modules
-- audio capture
-- STT adapter
-- TTS adapter
-- interrupt manager
-- confirmation manager
-
-### Key constraint
-The system must support interruption gracefully. A desktop assistant that cannot be interrupted feels unusable.
+### 初始建议
+如果优先级是开发速度和系统集成，而不是动画深度，建议从 **Tauri** 开始。
 
 ---
 
-## 3. Agent Runtime Layer
-### Responsibility
-Interpret intent, plan actions, choose tools, supervise execution, and emit inspectable events.
+## 2. 交互层
+### 职责
+处理所有面向用户的输入输出流程。
 
-### Internal modules
-#### Intent layer
-- parse user request
-- detect whether request is informational, operational, or conversational
+### 输入
+- 麦克风采集
+- 可选的唤醒词或按键说话
+- 文本输入兜底
+- 快捷键 / 托盘菜单 / 紧凑命令面板
 
-#### Planner
-- decompose multi-step tasks
-- determine whether confirmation is required
-- choose execution path
+### 输出
+- 语音合成
+- 屏幕气泡 / 通知
+- 状态指示
+- 批准 / 确认提示
 
-#### Runtime core
-- maintain explicit task state
-- supervise sub-steps / worker modules
-- classify failures
-- coordinate retries or escalation
+### 内部模块
+- 音频采集
+- STT 适配器
+- TTS 适配器
+- 打断管理器
+- 确认管理器
 
-#### Event system
-Emit structured events such as:
+### 关键约束
+系统必须优雅地支持打断。一个不能被打断的桌面助手，会非常难用。
+
+---
+
+## 3. 代理运行时层
+### 职责
+解释用户意图、规划动作、选择工具、监督执行，并发出可检查的结构化事件。
+
+### 内部模块
+#### 意图层
+- 解析用户请求
+- 判断请求属于信息型、操作型还是陪伴/对话型
+
+#### 规划器
+- 拆解多步骤任务
+- 判断是否需要确认
+- 选择执行路径
+
+#### 运行时核心
+- 维护明确的任务状态
+- 监督子步骤 / 工作模块
+- 分类失败原因
+- 协调重试或升级处理
+
+#### 事件系统
+发出结构化事件，例如：
 - `input.received`
 - `intent.classified`
 - `task.created`
@@ -104,136 +104,136 @@ Emit structured events such as:
 - `confirmation.required`
 - `memory.updated`
 
-### Design requirement
-This layer should be auditable.
-The assistant must not behave like a monolithic prompt black box.
+### 设计要求
+这一层必须是可审计的。
+助手不能表现成一个巨大的 prompt 黑箱。
 
 ---
 
-## 4. Memory Layer
-### Responsibility
-Store and retrieve recent context, meaningful episodes, and stable user preferences.
+## 4. 记忆层
+### 职责
+存储并检索近期上下文、有意义的经历，以及稳定的用户偏好。
 
-### Memory partitions
-#### Working memory
-- active task
-- recent commands
-- current app/window/file context
-- recent dialogue turns
+### 记忆分区
+#### 工作记忆
+- 当前活跃任务
+- 最近执行过的命令
+- 当前应用 / 窗口 / 文件上下文
+- 最近几轮对话
 
-#### Episodic memory
-- significant actions taken today
-- recurring workflows
-- interrupted task chains
+#### 情景记忆
+- 今天发生的重要操作
+- 重复出现的工作流
+- 被打断的任务链
 
-#### Preference memory
-- preferred apps
-- naming conventions
-- preferred confirmation style
-- work habits and recurring routines
+#### 偏好记忆
+- 偏好的应用
+- 命名习惯
+- 喜欢的确认方式
+- 工作习惯与重复例程
 
-### Design requirement
-Memory should be:
-- inspectable
-- editable
-- scoped
-- deletable
-- privacy-aware
+### 设计要求
+记忆必须具备：
+- 可查看
+- 可编辑
+- 可分域
+- 可删除
+- 有隐私边界
 
-### Recommended storage
-- local SQLite for v0.1
-- structured tables + lightweight summaries
-- optional vector retrieval later for richer semantic recall
-
----
-
-## 5. Windows Action Layer
-### Responsibility
-Actually operate the computer.
-
-### Action domains
-- application launching/focus/switching
-- file and folder operations
-- browser automation
-- clipboard access
-- keyboard/mouse automation
-- window management
-- screenshots / OCR / contextual perception
-- PowerShell / shell execution with policy boundaries
-
-### Action safety classes
-#### Class A — low risk
-- open app
-- switch window
-- read title / read current state
-- screenshot / inspect
-
-#### Class B — moderate risk
-- type text
-- create files
-- move files
-- browser form interaction
-
-#### Class C — high risk
-- delete / overwrite
-- send messages externally
-- run shell commands with side effects
-- install/uninstall software
-
-#### Class D — restricted by default
-- security-sensitive configuration changes
-- credential / secret manipulation
-- destructive bulk actions
-
-### Requirement
-All actions must be policy-filtered before execution.
+### 推荐存储
+- v0.1 使用本地 SQLite
+- 结构化表 + 轻量摘要
+- 后续可选加入向量检索以支持更丰富的语义召回
 
 ---
 
-## Safety and control plane
-The assistant should include a policy/control layer that decides:
-- what can run automatically
-- what requires lightweight confirmation
-- what requires explicit approval
-- what is disabled entirely
+## 5. Windows 动作层
+### 职责
+真正去操作电脑。
 
-### Audit data per action
+### 动作域
+- 应用启动 / 聚焦 / 切换
+- 文件和文件夹操作
+- 浏览器自动化
+- 剪贴板访问
+- 键鼠自动化
+- 窗口管理
+- 截图 / OCR / 上下文感知
+- 带策略边界的 PowerShell / Shell 执行
+
+### 动作安全等级
+#### A 类 —— 低风险
+- 打开应用
+- 切换窗口
+- 读取标题 / 读取当前状态
+- 截图 / 检查
+
+#### B 类 —— 中风险
+- 输入文本
+- 创建文件
+- 移动文件
+- 浏览器表单交互
+
+#### C 类 —— 高风险
+- 删除 / 覆盖
+- 对外发送消息
+- 执行带副作用的 shell 命令
+- 安装 / 卸载软件
+
+#### D 类 —— 默认受限
+- 安全敏感配置修改
+- 凭证 / 密钥操作
+- 大规模破坏性动作
+
+### 要求
+所有动作在执行前都必须经过策略过滤。
+
+---
+
+## 安全与控制平面
+系统应包含一个策略 / 控制层，用于决定：
+- 哪些动作可以自动执行
+- 哪些动作需要轻量确认
+- 哪些动作需要显式批准
+- 哪些动作应被彻底禁用
+
+### 每次动作应记录的审计数据
 - request id
-- initiating user intent
-- chosen action
-- target resource
-- result
-- error if any
-- confirmation record if applicable
+- 发起该动作的用户意图
+- 选择了什么动作
+- 目标资源是什么
+- 执行结果
+- 如果失败，错误是什么
+- 如果需要确认，确认记录是什么
 
 ---
 
-## Suggested v0.1 stack
-### UI shell
+## 建议的 v0.1 技术栈
+### UI 外壳
 - Tauri
 
-### Runtime
-- Python service process
+### 运行时
+- Python 服务进程
 
-### Memory
+### 记忆层
 - SQLite
 
-### Windows automation
-- PowerShell + UI Automation wrappers + safe desktop control adapters
+### Windows 自动化
+- PowerShell + UI Automation 封装 + 安全桌面控制适配器
 
-### Speech
-- Whisper-compatible STT path
-- local or cloud TTS path
+### 语音层
+- 兼容 Whisper 的 STT 路径
+- 本地或云端 TTS 路径
 
-### Why this split
-- Tauri gives a practical Windows shell
-- Python gives fastest AI/runtime iteration
-- SQLite keeps memory simple and local
-- automation adapters can evolve independently of the runtime logic
+### 为什么这样拆
+- Tauri 适合做实用的 Windows 外壳
+- Python 适合快速迭代 AI / runtime 逻辑
+- SQLite 简单、本地、足够支撑第一阶段
+- 自动化适配器可以独立于 runtime 演化
 
 ---
 
-## Proposed repository split
+## 建议的仓库结构
 ```text
 desktop-familiar/
 ├── README.md
@@ -257,34 +257,34 @@ desktop-familiar/
 
 ---
 
-## v0.1 milestone
-### Goal
-A usable local prototype, not yet a polished consumer app.
+## v0.1 里程碑
+### 目标
+做出一个本地可用的原型，而不是一开始就追求消费级 polished 应用。
 
-### Must-have
-- desktop shell with visible assistant state
-- push-to-talk voice input
-- STT -> intent classification -> task execution loop
-- a few safe Windows actions
-- working memory over current session
-- explicit confirmation for medium/high-risk actions
-- action/event log visible in UI or local file
+### 必须具备
+- 能显示助手状态的桌面外壳
+- push-to-talk 语音输入
+- STT -> 意图分类 -> 任务执行闭环
+- 少量安全的 Windows 动作
+- 当前会话范围内的工作记忆
+- 对中高风险动作做显式确认
+- 在 UI 或本地文件中可见的动作 / 事件日志
 
-### Example demo flow
-1. user says: "open VS Code and the folder I was just using"
-2. assistant resolves recent folder from working memory
-3. assistant asks for confirmation if ambiguity exists
-4. assistant launches/focuses VS Code
-5. assistant logs what it did
-6. assistant remains available for follow-up
+### 示例演示流程
+1. 用户说：“打开 VS Code 和我刚才在用的那个文件夹”
+2. 助手从工作记忆中解析最近的文件夹
+3. 如果存在歧义，助手发起确认
+4. 助手启动或聚焦 VS Code
+5. 助手记录本次执行行为
+6. 助手保持待命，准备下一轮跟进
 
 ---
 
-## Long-term direction
-The project should evolve from:
-- desktop companion demo
+## 长期方向
+这个项目应从：
+- 一个桌面伴侣 demo
 
-to:
-- dependable personal Windows agent runtime with memory, supervision, and safe execution
+演进为：
+- 一个具备记忆、监督能力和安全执行边界的可靠 Windows 个人代理运行时
 
-That is the real ambition.
+这才是它真正的野心。

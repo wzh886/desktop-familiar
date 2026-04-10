@@ -1,43 +1,46 @@
 # desktop-familiar
 
-A Windows-native embodied AI desktop companion: part assistant, part ambient interface, part executable agent.
+一个面向 Windows 的具身化 AI 桌面伴侣：既是助手，也是常驻界面，还是一个可执行任务的代理。
 
-`desktop-familiar` is not intended to be just a cute desktop pet.
-It is designed as a **persistent personal agent shell** that can:
-- listen through the microphone
-- understand short-term user context
-- remember long-term habits and preferences
-- operate the desktop safely
-- present itself as an always-available abstract companion
+`desktop-familiar` 的目标不是做一个“会动的小桌宠”。
+它被定义为一个**持续存在的个人代理外壳**，可以：
+- 通过麦克风听你说话
+- 理解你短期内的任务上下文
+- 记住你长期的习惯与偏好
+- 安全地操作桌面环境
+- 以一种抽象、常驻、低打扰的方式陪伴在屏幕上
 
-## Core idea
-Most AI interfaces are trapped inside chat boxes.
-This project explores a different thesis:
+## 核心想法
+大多数 AI 产品都被困在聊天框里。
+这个项目想验证另一种命题：
 
-> an AI assistant becomes more useful when it is ambient, embodied, stateful, and operational.
+> 当一个 AI 助手具备环境感、具身感、状态感和执行力时，它才会真正变得更有用。
 
-That means combining:
-- a lightweight desktop character/presence layer
-- a real voice input/output layer
-- an auditable agent runtime
-- a memory system that separates working memory from long-term user modeling
-- a safe desktop automation layer for Windows
+这意味着要把以下几层组合在一起：
+- 轻量级的桌面角色 / 存在层
+- 真正可用的语音输入输出层
+- 可审计的代理运行时
+- 将工作记忆与长期用户建模分开的记忆系统
+- 面向 Windows 的安全桌面自动化层
 
-## Repository status
-This repository currently defines the product philosophy and system architecture for the first serious version.
+## 当前状态
+这个仓库当前用于定义项目的第一版严肃形态：产品哲学、系统架构与阶段路线图。
 
-## Documents
+## 文档
 - [`docs/philosophy.md`](docs/philosophy.md)
 - [`docs/architecture.md`](docs/architecture.md)
 - [`docs/roadmap.md`](docs/roadmap.md)
 
-## Why this project is interesting
-Unlike a normal assistant app, this system aims to combine:
-- **presence** — always-there, low-friction interaction
-- **agency** — ability to act on the computer
-- **memory** — awareness of recent context and learned habits
-- **personality** — an abstract but coherent companion layer
-- **safety** — explicit confirmations, scoped permissions, event history, and recoverable execution
+## 为什么这个项目值得做
+它和普通助手应用不同，目标是把下面几件事结合起来：
+- **存在感** —— 始终在场、低摩擦交互
+- **行动力** —— 能真正对电脑执行操作
+- **记忆力** —— 理解近期上下文和长期习惯
+- **人格感** —— 拥有抽象但一致的陪伴层
+- **安全性** —— 明确确认、权限分级、事件记录和可恢复执行
 
-## Long-term goal
-Build a Windows desktop AI companion that feels alive enough to stay on screen, useful enough to trust with real tasks, and structured enough to inspect, constrain, and improve over time.
+## 长期目标
+做出一个真正适合 Windows 的 AI 桌面伴侣：
+既足够“活”，能够一直留在屏幕上；
+又足够“有用”，能帮你完成真实任务；
+还足够“可控”，能被检查、约束和持续改进。

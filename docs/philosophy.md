@@ -1,133 +1,136 @@
-# Philosophy
+# 哲学理念
 
-## 1. The assistant should not live only inside a chat box
-Conventional AI products assume the right interface is a text conversation.
-That is convenient for deployment, but weak for daily use.
-A personal agent that is meant to stay with someone throughout the day should feel:
-- present
-- interruptible
-- ambient
-- low-friction
-- situated in the user's real working environment
+## 1. 助手不应该只活在聊天框里
+传统 AI 产品默认最合适的交互方式是文字对话。
+这对部署很方便，但对日常使用并不够强。
+一个需要整天陪伴用户的个人代理，应该具备：
+- 在场感
+- 可打断性
+- 环境感
+- 低摩擦交互
+- 与真实工作环境相绑定
 
-A desktop companion satisfies this better than a pure chat window.
-
----
-
-## 2. "Desktop pet" is the aesthetic shell, not the product definition
-A desktop pet without real utility is novelty.
-An automation tool without presence is cold and forgettable.
-The project aims to combine the two.
-
-The visual companion layer exists to:
-- reduce psychological distance
-- lower interaction cost
-- provide status without demanding focus
-- create continuity of presence across tasks
-
-The real product is a **personal agent shell**.
+桌面伴侣比纯聊天窗口更接近这种形态。
 
 ---
 
-## 3. Memory should be layered, not blobbed
-Most AI memory implementations fail because they collapse all memory into one undifferentiated context bucket.
-This project should distinguish:
+## 2. “桌宠”只是美学外壳，不是产品定义
+没有实际能力的桌宠只是新奇玩具。
+没有存在感的自动化工具又太冷、太容易被遗忘。
+这个项目的目标是把两者结合起来。
 
-### Working memory
-- what the user is doing right now
-- current task state
-- recent commands
-- recent windows/apps/files/events
+视觉陪伴层存在的意义是：
+- 缩短心理距离
+- 降低交互成本
+- 在不强占注意力的前提下提供状态反馈
+- 为跨任务场景提供连续存在感
 
-### Episodic memory
-- what happened today or recently
-- meaningful events or sequences
-- task histories
-
-### Preference memory
-- stable user habits
-- naming preferences
-- favorite tools/apps
-- communication style
-- boundaries and sensitivities
-
-Each layer should be editable, inspectable, and revocable.
+真正的产品本体，是一个**个人代理外壳**。
 
 ---
 
-## 4. Agency without inspectability is not acceptable
-If the system can operate a Windows desktop, then it must not behave like a black box.
-The user should be able to know:
-- what it is doing
-- why it is doing it
-- what it just touched
-- what failed
-- what needs confirmation
+## 3. 记忆必须分层，而不是混成一团
+很多 AI 记忆系统之所以失败，是因为它们把所有记忆都塞进一个模糊的上下文桶里。
+这个项目必须明确区分：
 
-This means the execution layer must be auditable and event-driven.
-The assistant should not silently jump from intent to action without structured visibility.
+### 工作记忆
+- 用户此刻正在做什么
+- 当前任务状态
+- 最近执行过的命令
+- 最近涉及的窗口 / 应用 / 文件 / 事件
 
----
+### 情景记忆
+- 今天或最近发生了什么
+- 有意义的行为序列
+- 任务历史
 
-## 5. Safety must be designed into the interaction model
-The point is not just to make an agent powerful.
-The point is to make it useful without making it reckless.
+### 偏好记忆
+- 稳定的用户习惯
+- 命名偏好
+- 常用工具 / 应用
+- 沟通风格
+- 边界与敏感项
 
-The project should separate actions into classes:
-- safe / low-risk actions
-- medium-risk actions requiring lightweight confirmation
-- high-risk actions requiring explicit approval
-- forbidden actions unless manually enabled
-
-A user should never feel that the assistant is one hallucination away from damaging the machine.
+每一层都应该支持查看、编辑、撤销与删除。
 
 ---
 
-## 6. Personality should emerge through consistency, not gimmicks
-The companion should not feel like a bundle of random emotions.
-Its personality should come from:
-- stable tone
-- repeatable behavior
-- predictable task handling
-- continuity of memory
-- visible state changes
+## 4. 没有可检查性的行动力是不可接受的
+如果系统能够操作 Windows 桌面，那它绝不能像黑箱一样运行。
+用户应该知道：
+- 它正在做什么
+- 为什么这么做
+- 刚刚动了什么
+- 哪里失败了
+- 哪一步需要确认
 
-Abstract presence works better than forced cartoon theatrics.
-The system should feel calm, coherent, and reliable.
-
----
-
-## 7. The best assistant is one that understands both state and momentum
-Real human work is not just a sequence of commands.
-It has momentum:
-- what was started
-- what is currently active
-- what was interrupted
-- what probably matters next
-
-The assistant should become useful not merely by answering a question, but by understanding task progression over time.
+这意味着执行层必须是可审计、事件驱动的。
+助手不能在没有结构化可见性的情况下，从意图直接跳到动作。
 
 ---
 
-## 8. This is best treated as an operating layer, not a feature
-The project is not just a toy on the screen.
-It is closer to a personal operating layer for:
-- communication with the machine
-- memory over time
-- task execution
-- lightweight workflow continuity
+## 5. 安全必须内建在交互模型里
+目标不是让代理“足够强大”。
+目标是让它在有用的同时，不变得鲁莽。
 
-That framing makes better product decisions than thinking of it as a pet with commands.
+项目应将操作划分为几个等级：
+- 安全 / 低风险动作
+- 中风险动作，需要轻量确认
+- 高风险动作，需要显式批准
+- 默认禁用动作，只有手动开启后才能执行
+
+用户绝不能觉得这个助手只差一次幻觉就能把机器搞坏。
 
 ---
 
-## Design thesis
-A successful Windows AI companion should feel like:
-- a visible and approachable presence
-- a trustworthy execution agent
-- a persistent contextual memory
-- an inspectable and constrained system
+## 6. 人格感应该来自一致性，而不是花活
+这个伴侣不应该像一堆随机情绪的拼接体。
+它的人格感应该来自：
+- 稳定的语气
+- 可重复的行为方式
+- 可预测的任务处理逻辑
+- 连续的记忆体验
+- 清晰可见的状态变化
 
-Not a chatbot. Not only a pet. Not only an automation script.
+抽象的存在感，往往比强行卖萌、强行夸张更有效。
+系统应该给人一种冷静、连贯、可靠的感觉。
 
-A **familiar**: an ambient personal intelligence attached to the desktop.
+---
+
+## 7. 最好的助手，不只是理解状态，还理解“势能”
+真实的人类工作不是一串离散命令。
+它有势能：
+- 什么已经开始了
+- 什么正在进行
+- 什么被打断了
+- 下一步最可能重要的是什么
+
+一个真正有用的助手，不只是回答问题，而是能理解任务在时间中的推进过程。
+
+---
+
+## 8. 这个项目更像一层操作层，而不是一个功能点
+它不应该只是屏幕上的一个玩具。
+它更接近一层个人操作界面，用来承载：
+- 人和机器之间的沟通
+- 随时间积累的记忆
+- 任务执行
+- 轻量级工作流连续性
+
+用这个视角来思考产品，会比“宠物 + 命令”更容易做出正确决策。
+
+---
+
+## 设计总命题
+一个成功的 Windows AI 伴侣，应该同时具备：
+- 可见、可接近的存在感
+- 值得信任的执行能力
+- 持续的上下文记忆
+- 可检查、可约束的系统结构
+
+它不只是聊天机器人。
+不只是桌宠。
+也不只是自动化脚本。
+
+它应该像一个 **familiar**：
+一个附着在桌面上的、环境化的个人智能体。
