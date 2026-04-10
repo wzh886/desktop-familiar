@@ -29,6 +29,8 @@
 ## 文档
 - [`docs/philosophy.md`](docs/philosophy.md)
 - [`docs/architecture.md`](docs/architecture.md)
+- [`docs/memory-model.md`](docs/memory-model.md)
+- [`docs/safety-model.md`](docs/safety-model.md)
 - [`docs/roadmap.md`](docs/roadmap.md)
 
 ## 为什么这个项目值得做
